@@ -4,6 +4,9 @@
  */
 package homeworkfour;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.sql.SQLException;
 
 /**
@@ -19,9 +22,15 @@ public class HomeworkFour {
      * @throws java.lang.IllegalAccessException
      * @throws java.lang.InstantiationException
      */
-    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException, FileNotFoundException {
         DBConnector dbconn = new DBConnector();
         dbconn.createDB();
+        
+        String line = "";
+        String commaSplit = ",";
+        
+        BufferedReader br = new BufferedReader(new FileReader("newData.csv"));
+        
         
     }
     
