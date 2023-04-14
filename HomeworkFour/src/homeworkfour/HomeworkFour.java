@@ -22,10 +22,12 @@ public class HomeworkFour {
      * @throws java.lang.ClassNotFoundException
      * @throws java.lang.IllegalAccessException
      * @throws java.lang.InstantiationException
+     * @throws java.sql.SQLException
+     * @throws java.io.FileNotFoundException
      */
     public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException, FileNotFoundException, IOException {
-//        DBConnector dbconn = new DBConnector();
-//        dbconn.createDB();
+        DBConnector dbconn = new DBConnector();
+        dbconn.createDB();
       
         //support variable
         String line = "";
@@ -52,8 +54,6 @@ public class HomeworkFour {
             
             System.out.println(invoice + stockCode + description + quantity + invoiceDate + price + custID + country);
         }
-
-        
 
     }
     

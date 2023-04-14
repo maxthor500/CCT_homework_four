@@ -52,6 +52,7 @@ public class DBConnector {
      * @param invoice
      * @param stockCode
      * @param description
+     * @param invoiceDate
      * @param quantity
      * @param price
      * @param custID
