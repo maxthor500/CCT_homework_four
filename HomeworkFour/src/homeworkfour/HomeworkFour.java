@@ -26,7 +26,7 @@ public class HomeworkFour {
     public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException, FileNotFoundException, IOException {
 //        DBConnector dbconn = new DBConnector();
 //        dbconn.createDB();
-//      
+      
         //support variable
         String line = "";
         String commaSplit = ",";
@@ -49,6 +49,8 @@ public class HomeworkFour {
             float price = Float.parseFloat(product[5]);
             int custID = Integer.parseInt(product[6]);
             String country = product[7];
+            
+            System.out.println(invoice + stockCode + description + quantity + invoiceDate + price + custID + country);
         }
 
         
