@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -57,13 +58,17 @@ public class DBConnector {
      * @param country
      * @throws SQLException
      */
-    public void addProduct(int invoice, int stockCode, String description, int quantity, float price, int custID, String country) throws SQLException {
+    public void addProduct(int invoice, int stockCode, String description, int quantity, String invoiceDate, float price, int custID, String country) throws SQLException {
             Connection conn = DriverManager.getConnection(DB_URL + "/" + DB_NAME, USER, PASSWD);
             Statement stmt = conn.createStatement();
+            
+            //convert the String invoiceDate in datatime
+            LocalDateTime dateTime = LocalDateTime.parse(invoiceDate);
+            
             stmt.execute(String.format("INSERT INTO products ("
                 + "Invoice, StockCode, Description, Quantity, InvoiceDate"
-                + "Price, CustomerID, Country) VALUES (%d, %d, %d, '%s', %d, %t, %f, %d, % )",
-                invoice, stockCode, description, quantity, price, custID, country));
+                + "Price, CustomerID, Country) VALUES (%d, %d, %s, %d, %t, %f, %d, %s)",
+                invoice, stockCode, description, quantity, dateTime, price, custID, country));
             System.out.println("Product Created");
         }
 }

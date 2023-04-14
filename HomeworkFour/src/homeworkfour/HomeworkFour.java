@@ -26,23 +26,32 @@ public class HomeworkFour {
     public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException, FileNotFoundException, IOException {
 //        DBConnector dbconn = new DBConnector();
 //        dbconn.createDB();
-//        
+//      
+        //support variable
         String line = "";
         String commaSplit = ",";
-        
+        String headerLine = "";
+ 
+        // inizialize the file reader
         BufferedReader br = new BufferedReader(new FileReader("newData.csv"));
         
-        line = br.readLine();
-
-        String[] product = line.split(commaSplit);
+        // read the first line
+        headerLine = br.readLine();
+        
+        while ((line = br.readLine()) != null)  {
+            String[] product = line.split(commaSplit);
             
-        System.out.println(product[0]);
-        System.out.println(product[1]);
-        System.out.println(product[2]);
-        System.out.println(product[3]);
-        System.out.println(product[4]);
-        System.out.println(product[5]);
-        System.out.println(product[6]);
+            int invoice = Integer.parseInt(product[0]);
+            int stockCode = Integer.parseInt(product[1]);
+            String description = product[2];
+            int quantity = Integer.parseInt(product[3]);
+            String invoiceDate = product[4];
+            float price = Float.parseFloat(product[5]);
+            int custID = Integer.parseInt(product[6]);
+            String country = product[7];
+        }
+
+        
 
     }
     
