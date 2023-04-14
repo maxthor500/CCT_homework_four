@@ -9,6 +9,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -52,9 +54,8 @@ public class HomeworkFour {
             int custID = Integer.parseInt(product[6]);
             String country = product[7];
             
-            System.out.println(invoice + stockCode + description + quantity + invoiceDate + price + custID + country);
         }
-
+        
     }
     
 }

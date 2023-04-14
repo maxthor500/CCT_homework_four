@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -64,7 +65,8 @@ public class DBConnector {
             Statement stmt = conn.createStatement();
             
             //convert the String invoiceDate in datatime
-            LocalDateTime dateTime = LocalDateTime.parse(invoiceDate);
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            LocalDateTime dateTime = LocalDateTime.parse(invoiceDate, dateFormat);
             
             stmt.execute(String.format("INSERT INTO products ("
                 + "Invoice, StockCode, Description, Quantity, InvoiceDate"
@@ -72,4 +74,5 @@ public class DBConnector {
                 invoice, stockCode, description, quantity, dateTime, price, custID, country));
             System.out.println("Product Created");
         }
+        
 }
