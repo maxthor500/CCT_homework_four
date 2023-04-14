@@ -11,7 +11,7 @@ import java.sql.Statement;
 
 /**
  *
- * @author fox_i
+ * @author sba22057
  */
 public class DBConnector {
     private final String DB_URL = "jdbc:mysql://localhost";
@@ -30,7 +30,7 @@ public class DBConnector {
             System.out.println("DB Created");
             stmt.execute("USE warehouse;");
             stmt.execute("CREATE TABLE IF NOT EXISTS products ("
-                            + "id INT(10) NOT NULL PRIMARY KEY,"
+                            + "id INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,"
                             + "Invoice INT(10),"
                             + "StockCode INT(10),"
                             + "Description VARCHAR(40),"
@@ -44,4 +44,26 @@ public class DBConnector {
             e.printStackTrace();
         }
     }
+        
+    /**
+     *
+     * @param id
+     * @param invoice
+     * @param stockCode
+     * @param description
+     * @param quantity
+     * @param price
+     * @param custID
+     * @param country
+     * @throws SQLException
+     */
+    public void addProduct(int id, int invoice, int stockCode, String description, int quantity, float price, int custID, String country) throws SQLException {
+            Connection conn = DriverManager.getConnection(DB_URL + "/" + DB_NAME, USER, PASSWD);
+            Statement stmt = conn.createStatement();
+            stmt.execute(String.format("INSERT INTO products (id, "
+                + "Invoice, StockCode, Description, Quantity, InvoiceDate"
+                + "Price, CustomerID, Country) VALUES (%d, %d, %d, '%s', %d, %t, %f, %d, % )",
+                id, invoice, stockCode, description, quantity, price, custID, country));
+            System.out.println("Product Created");
+        }
 }
