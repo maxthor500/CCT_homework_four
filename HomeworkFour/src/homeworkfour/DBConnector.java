@@ -57,13 +57,13 @@ public class DBConnector {
      * @param country
      * @throws SQLException
      */
-    public void addProduct(int id, int invoice, int stockCode, String description, int quantity, float price, int custID, String country) throws SQLException {
+    public void addProduct(int invoice, int stockCode, String description, int quantity, float price, int custID, String country) throws SQLException {
             Connection conn = DriverManager.getConnection(DB_URL + "/" + DB_NAME, USER, PASSWD);
             Statement stmt = conn.createStatement();
-            stmt.execute(String.format("INSERT INTO products (id, "
+            stmt.execute(String.format("INSERT INTO products ("
                 + "Invoice, StockCode, Description, Quantity, InvoiceDate"
                 + "Price, CustomerID, Country) VALUES (%d, %d, %d, '%s', %d, %t, %f, %d, % )",
-                id, invoice, stockCode, description, quantity, price, custID, country));
+                invoice, stockCode, description, quantity, price, custID, country));
             System.out.println("Product Created");
         }
 }
