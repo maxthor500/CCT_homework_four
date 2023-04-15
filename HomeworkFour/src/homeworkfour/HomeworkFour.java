@@ -54,6 +54,7 @@ public class HomeworkFour {
             int custID = Integer.parseInt(product[6]);
             String country = product[7];
             
+            dbconn.addProduct(dbconn.idProduct, invoice, stockCode, description, quantity, price, invoiceDate, custID, country);
         }
         
     }
