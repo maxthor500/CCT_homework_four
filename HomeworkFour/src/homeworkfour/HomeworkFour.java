@@ -50,11 +50,11 @@ public class HomeworkFour {
             String description = product[2];
             int quantity = Integer.parseInt(product[3]);
             String invoiceDate = product[4];
-            float price = Float.parseFloat(product[5]);
+            double price = Double.parseDouble(product[5]);
             int custID = Integer.parseInt(product[6]);
             String country = product[7];
             
-            dbconn.addProduct(dbconn.idProduct, invoice, stockCode, description, quantity, price, invoiceDate, custID, country);
+            dbconn.addProduct(invoice, stockCode, description, quantity, price, invoiceDate, custID, country);
         }
         
     }
