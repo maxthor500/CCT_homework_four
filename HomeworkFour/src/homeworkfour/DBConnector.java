@@ -18,28 +18,37 @@ public class DBConnector {
     private final String USER = "pooa";
     private final String PASSWD = "H0mework4";
     private final String DB_NAME = "warehouse";
+    public static int idProduct = 0;
     
     public void createDB() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         // set up the DB
         Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
         try {
+            //  Open a connection
             Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWD);
+           
+            // Execute a Query
             Statement stmt = conn.createStatement();
+            
+            String sql = "CREATE TABLE IF NOT EXISTS products "
+                    + " id INT(10) NOT NULL,"
+                    + " invoice INT(10) NOT NULL,"
+                    + " stockCode INT(10) NOT NULL,"
+                    + " description VARCHAR(255),"
+                    + " quantity INT(10) NOT NULL,"
+                    + " InvoiceDate DATETIME NOT NULL,"
+                    + " Price DECIMAL(15,2) NOT NULL,"
+                    + " CustomerID INT(10),"
+                    + " Country VARCHAR(50)"
+                    + " PRIMARY KEY (id));";
+            
             String createDB = "CREATE DATABASE IF NOT EXISTS " + DB_NAME + ";";
             stmt.executeUpdate(createDB);
             System.out.println("DB Created");
             stmt.execute("USE warehouse;");
-            stmt.execute("CREATE TABLE IF NOT EXISTS products ("
-                            + "id INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,"
-                            + "Invoice INT(10),"
-                            + "StockCode INT(10),"
-                            + "Description VARCHAR(40),"
-                            + "Quantity INT(4),"
-                            + "InvoiceDate DATETIME,"
-                            + "Price DECIMAL(15, 2),"
-                            + "CustomerID INT(10),"
-                            + "Country VARCHAR(40)"
-                            + ");");
+            stmt.executeUpdate(sql);
+            System.out.println("Created Table products!");
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -47,23 +56,27 @@ public class DBConnector {
         
     /**
      *
-     * @param id
      * @param invoice
      * @param stockCode
      * @param description
+     * @param invoiceDate
      * @param quantity
      * @param price
      * @param custID
      * @param country
      * @throws SQLException
      */
-    public void addProduct(int id, int invoice, int stockCode, String description, int quantity, float price, int custID, String country) throws SQLException {
+    public void addProduct(int invoice, int stockCode, String description, int quantity, double price, String invoiceDate, int custID, String country) throws SQLException {
             Connection conn = DriverManager.getConnection(DB_URL + "/" + DB_NAME, USER, PASSWD);
             Statement stmt = conn.createStatement();
-            stmt.execute(String.format("INSERT INTO products (id, "
-                + "Invoice, StockCode, Description, Quantity, InvoiceDate"
-                + "Price, CustomerID, Country) VALUES (%d, %d, %d, '%s', %d, %t, %f, %d, % )",
-                id, invoice, stockCode, description, quantity, price, custID, country));
-            System.out.println("Product Created");
+
+            String sqlInsert;
+            sqlInsert = "INSERT INTO newData VALUES (" 
+                    + idProduct + ", " + invoice + ", " + stockCode + ", " + description + ", " 
+                    + quantity + ", " + price + ", " + invoiceDate + ", " + custID + ", " + country + ");";
+            stmt.executeUpdate(sqlInsert);
+            
+            // increment id 
+            idProduct++;
         }
 }
